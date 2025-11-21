@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Movie List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Added for icons -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: #fff;
+            line-height: 1.6;
+            padding-bottom: 60px; /* Prevent footer overlap */
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        /* Section Styles */
+        section {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px); /* Adds a glassy effect */
+        }
+
+        section h2 {
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+        }
+
+        section h2 i {
+            margin-right: 10px;
+            color: #ffd700;
+        }
+
+        /* List Styles */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        li strong {
+            color: #ffd700;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        li strong:hover {
+            color: #fff;
+        }
+
+        li i {
+            margin-right: 10px;
+            color: #ffd700;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+            section {
+                margin: 10px;
+                padding: 15px;
+            }
+            nav a {
+                display: block;
+                margin: 5px 0;
+            }
+            .modal-content {
+                width: 90%;
+                margin: 20% auto;
+            }
+        }
+
+        /* Animation for sections */
+        section {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Movie Collection</h1>
+        <nav>
+            <a href="#action"><i class="fas fa-fist-raised"></i> Action</a> |
+            <a href="#horror"><i class="fas fa-ghost"></i> Horror</a> |
+            <a href="#suspense"><i class="fas fa-search"></i> Suspense</a> |
+            <a href="#comedy"><i class="fas fa-laugh-squint"></i> Comedy</a> |
+            <a href="#drama"><i class="fas fa-theater-masks"></i> Drama</a> |
+            <a href="#scifi"><i class="fas fa-rocket"></i> Sci-Fi</a>
+        </nav>
+    </header>
+
+    <section id="action">
+        <h2><i class="fas fa-fist-raised"></i> Action Movies</h2>
+        <ul>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Mad Max: Fury Road (2015)', 'In a post-apocalyptic wasteland, Max Rockatansky teams up with Furiosa to escape a tyrannical warlord and his army in a high-speed chase filled with explosive action and stunning visuals.')">Mad Max: Fury Road (2015)</strong> - A high-octane chase in a post-apocalyptic world.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('John Wick (2014)', 'John Wick, a legendary assassin, comes out of retirement to hunt down the gangsters who killed his dog and stole his car, unleashing a brutal vendetta in this stylish action thriller.')">John Wick (2014)</strong> - A retired hitman seeks revenge.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Die Hard (1988)', 'NYPD officer John McClane battles terrorists who have taken over a Los Angeles skyscraper during a Christmas party, leading to intense firefights and clever one-liners.')">Die Hard (1988)</strong> - A cop battles terrorists in a skyscraper.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Dark Knight (2008)', 'Batman faces his greatest challenge when the Joker unleashes chaos on Gotham City, forcing the Dark Knight to confront his limits in a battle of wits and mayhem.')">The Dark Knight (2008)</strong> - Batman faces the Joker in Gotham.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Avengers: Endgame (2019)', 'The Avengers assemble one last time to reverse the snap caused by Thanos, traveling through time and space in an epic showdown to restore balance to the universe.')">Avengers: Endgame (2019)</strong> - Heroes unite to reverse a cosmic catastrophe.</li>
+        </ul>
+    </section>
+
+    <section id="horror">
+        <h2><i class="fas fa-ghost"></i> Horror Movies</h2>
+        <ul>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Conjuring (2013)', 'Paranormal investigators Ed and Lorraine Warren take on a haunted house possessed by a demonic entity, blending real-life scares with supernatural terror.')">The Conjuring (2013)</strong> - Paranormal investigators face demonic forces.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Hereditary (2018)', 'A grieving family uncovers dark secrets and occult rituals after the death of their secretive grandmother, leading to psychological horror and family disintegration.')">Hereditary (2018)</strong> - A family's dark secrets unravel.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Shining (1980)', 'Jack Torrance takes a job as winter caretaker at the isolated Overlook Hotel, where supernatural forces drive him and his family toward madness and murder.')">The Shining (1980)</strong> - A family isolated in a haunted hotel.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Get Out (2017)', 'Chris Washington visits his white girlfriend\'s family, only to discover a horrifying secret about their intentions, exploring themes of racism and body horror.')">Get Out (2017)</strong> - A young man uncovers horrors at his girlfriend's family home.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Midsommar (2019)', 'A couple travels to Sweden for a midsummer festival, but the idyllic setting hides a cult\'s terrifying rituals, blending folk horror with psychological dread.')">Midsommar (2019)</strong> - A couple's trip turns into a nightmare festival.</li>
+        </ul>
+    </section>
+
+    <section id="suspense">
+        <h2><i class="fas fa-search"></i> Suspense Movies</h2>
+        <ul>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Parasite (2019)', 'A poor family schemes to become employed by a wealthy household, leading to a series of twists that expose class divides and hidden agendas in this Oscar-winning thriller.')">Parasite (2019)</strong> - Class tensions lead to shocking twists.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Get Out (2017)', 'Chris Washington visits his white girlfriend\'s family, only to discover a horrifying secret about their intentions, exploring themes of racism and body horror.')">Get Out (2017)</strong> - A young man uncovers horrors at his girlfriend's family home.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Inception (2010)', 'Dom Cobb, a skilled thief, enters the dreams of others to steal secrets, but a final job to plant an idea becomes a mind-bending labyrinth of layers and reality.')">Inception (2010)</strong> - A thief enters dreams to steal secrets.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Prisoners (2013)', 'When his daughter goes missing, a desperate father takes matters into his own hands, leading to a tense cat-and-mouse game with a suspect and moral dilemmas.')">Prisoners (2013)</strong> - A father searches for his kidnapped daughter.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Usual Suspects (1995)', 'A group of criminals is rounded up for a police lineup, and one recounts the story of a heist gone wrong, revealing twists in this neo-noir classic.')">The Usual Suspects (1995)</strong> - A group of criminals recounts a heist gone wrong.</li>
+        </ul>
+    </section>
+
+    <section id="comedy">
+        <h2><i class="fas fa-laugh-squint"></i> Comedy Movies</h2>
+        <ul>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Grand Budapest Hotel (2014)', 'Gustave H, a legendary concierge, and his lobby boy Zero embark on a series of adventures involving theft, murder, and eccentric characters in a whimsical European hotel.')">The Grand Budapest Hotel (2014)</strong> - A concierge's adventures in a luxurious hotel.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Superbad (2007)', 'Two socially awkward teens, Jonah and Jonah, navigate high school parties, crushes, and mishaps in this hilarious coming-of-age comedy about friendship and puberty.')">Superbad (2007)</strong> - Two teens navigate high school and parties.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Groundhog Day (1993)', 'Weatherman Phil Connors relives the same day over and over in a small town, learning life lessons and finding love in this clever, existential comedy.')">Groundhog Day (1993)</strong> - A weatherman relives the same day endlessly.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Booksmart (2019)', 'Two academic overachievers, Amy and Molly, decide to cram a lifetime of partying into one night before graduation, leading to outrageous and heartfelt adventures.')">Booksmart (2019)</strong> - Two girls cram for prom in one wild night.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Deadpool (2016)', 'Wade Wilson, a wisecracking mercenary with regenerative abilities, breaks the fourth wall in this irreverent superhero comedy filled with action and humor.')">Deadpool (2016)</strong> - A wisecracking mercenary fights crime.</li>
+        </ul>
+    </section>
+
+    <section id="drama">
+        <h2><i class="fas fa-theater-masks"></i> Drama Movies</h2>
+        <ul>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Shawshank Redemption (1994)', 'Andy Dufresne, wrongly convicted of murder, finds hope and friendship in prison through acts of quiet rebellion and an unlikely alliance with Red.')">The Shawshank Redemption (1994)</strong> - Hope and friendship in prison.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Forrest Gump (1994)', 'Forrest Gump, a man with a low IQ, unwittingly influences major historical events while searching for love and meaning in his extraordinary life.')">Forrest Gump (1994)</strong> - A man's extraordinary life journey.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Schindler\'s List (1993)', 'Oskar Schindler, a German businessman, risks everything to save Jewish lives during the Holocaust by employing them in his factories, a powerful tale of humanity.')">Schindler's List (1993)</strong> - A businessman saves lives during the Holocaust.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Moonlight (2016)', 'Chiron, a young black man in Miami, navigates identity, sexuality, and trauma through three stages of his life in this poignant coming-of-age story.')">Moonlight (2016)</strong> - A young man's coming-of-age story.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('12 Years a Slave (2013)', 'Solomon Northup, a free black man, is kidnapped and sold into slavery, enduring 12 years of hardship before regaining his freedom in this harrowing adaptation.')">12 Years a Slave (2013)</strong> - The true story of Solomon Northup's enslavement.</li>
+        </ul>
+    </section>
+
+    <section id="scifi">
+        <h2><i class="fas fa-rocket"></i> Sci-Fi Movies</h2>
+        <ul>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Blade Runner 2049 (2017)', 'Officer K, a replicant blade runner, uncovers secrets from the past that challenge his existence and humanity in a dystopian future.')">Blade Runner 2049 (2017)</strong> - A replicant hunts down rogue androids.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Interstellar (2014)', 'In a dying Earth, ex-pilot Cooper travels through a wormhole to find a new habitable planet, grappling with time, space, and love across the cosmos.')">Interstellar (2014)</strong> - Explorers travel through a wormhole to save humanity.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('The Matrix (1999)', 'Neo discovers that the world he knows is a simulation created by machines, joining a rebellion to free humanity in this groundbreaking cyberpunk epic.')">The Matrix (1999)</strong> - A hacker discovers the truth about reality.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Dune (2021)', 'Paul Atreides navigates political intrigue and prophecy on the desert planet Arrakis, battling for control of the universe\'s most valuable resource.')">Dune (2021)</strong> - A young noble navigates politics on a desert planet.</li>
+            <li><i class="fas fa-film"></i> <strong onclick="openModal('Arrival (
